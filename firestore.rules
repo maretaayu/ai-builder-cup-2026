@@ -1,0 +1,59 @@
+rules_version = '2';
+
+// Aturan keamanan Ruang Rasa.
+// Prinsip: tidak ada data yang terbuka untuk publik. Kode ruang (6 karakter acak) berfungsi sebagai
+// kunci akses ke sebuah ruang; hanya pemilik ruang yang dapat membaca sinyal dan cek cuaca hati anak.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function masuk() { return request.auth != null; }
+    function dewasa() { return masuk() && request.auth.token.firebase.sign_in_provider != 'anonymous'; }
+    function pemilik(kode) {
+      return dewasa() && get(/databases/$(database)/documents/rooms/$(kode)).data.ownerUid == request.auth.uid;
+    }
+
+    // Profil: hanya pemiliknya.
+    match /users/{uid} {
+      allow read, write: if masuk() && request.auth.uid == uid;
+    }
+
+    match /rooms/{kode} {
+      // Mengetahui kode ruang cukup untuk melihat namanya; daftar semua ruang tidak diizinkan.
+      allow get: if masuk();
+      allow list: if false;
+      allow create: if dewasa()
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.nama is string
+        && request.resource.data.nama.size() <= 60;
+      allow update, delete: if pemilik(kode);
+
+      match /anggota/{uid} {
+        allow create, update: if masuk() && request.auth.uid == uid;
+        allow read: if masuk() && (request.auth.uid == uid || pemilik(kode));
+      }
+
+      match /signals/{id} {
+        allow create: if masuk() && request.resource.data.anakUid == request.auth.uid;
+        allow read: if masuk() && (resource.data.anakUid == request.auth.uid || pemilik(kode));
+        allow update: if masuk() && (resource.data.anakUid == request.auth.uid || pemilik(kode));
+        allow delete: if pemilik(kode);
+      }
+
+      match /checkins/{id} {
+        allow create: if masuk() && request.resource.data.anakUid == request.auth.uid;
+        allow read: if masuk() && (resource.data.anakUid == request.auth.uid || pemilik(kode));
+        allow update, delete: if false;
+      }
+    }
+
+    // Hasil Academy: setiap peserta menulis miliknya; sesama pengguna dewasa dapat membaca untuk dashboard pelatih.
+    match /akademi/{uid} {
+      allow read: if dewasa();
+      allow write: if dewasa() && request.auth.uid == uid;
+    }
+
+    match /{semua=**} {
+      allow read, write: if false;
+    }
+  }
+}
