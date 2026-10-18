@@ -46,8 +46,8 @@ export type State = {
   sound: boolean;
 };
 
-const KEY = "ruang-rasa-v1";
-const KEY_SUARA = "ruang-rasa-suara-v2";
+const KEY = "teman-ada-v1";
+const KEY_SUARA = "teman-ada-suara-v2";
 
 const initial: State = {
   lang: "id",
