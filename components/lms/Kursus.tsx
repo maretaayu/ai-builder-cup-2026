@@ -26,24 +26,25 @@ function Tes({ fase }: { fase: "pre" | "post" }) {
   const post = fase === "post";
 
   function pilih(n: number) {
-    if (dipilih !== null) return;
+    // Pre-test: jawaban boleh diganti sebelum "Lanjut". Post-test langsung menampilkan pembahasan, jadi dikunci.
+    if (post && dipilih !== null) return;
     setDipilih(n);
-    const ok = n === soal.benar;
-    if (ok) setSkor((s) => s + 1);
-    if (post) (ok ? sfx.benar : sfx.salah)();
+    if (post) (n === soal.benar ? sfx.benar : sfx.salah)();
   }
 
   function lanjut() {
+    const total = skor + (dipilih === soal.benar ? 1 : 0);
     if (i + 1 < SOAL.length) {
+      setSkor(total);
       setI(i + 1);
       setDipilih(null);
       return;
     }
     if (fase === "pre") {
-      actions.setAkademi({ pre: skor, tahap: "materi" });
+      actions.setAkademi({ pre: total, tahap: "materi" });
     } else {
       const ts = Date.now();
-      actions.setAkademi({ post: skor, tahap: "selesai", selesaiTs: ts, kode: kodeSertifikat(a.nama, ts) });
+      actions.setAkademi({ post: total, tahap: "selesai", selesaiTs: ts, kode: kodeSertifikat(a.nama, ts) });
       fx.rayakan();
     }
   }
@@ -68,7 +69,7 @@ function Tes({ fase }: { fase: "pre" | "post" }) {
             <li key={n}>
               <button
                 type="button"
-                disabled={dipilih !== null}
+                disabled={post && dipilih !== null}
                 aria-pressed={terpilih}
                 onClick={() => pilih(n)}
                 className={`flex h-full w-full items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm font-medium transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-biru disabled:cursor-default ${

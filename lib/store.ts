@@ -70,7 +70,7 @@ const initial: State = {
   checkins: [],
   circle: [],
   signals: [],
-  sound: true,
+  sound: false,
 };
 
 let state: State = initial;

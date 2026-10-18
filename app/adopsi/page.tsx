@@ -17,6 +17,7 @@ export default function Adopsi() {
   const { t } = useT();
   const sesi = useSesi();
   const [species, setSpecies] = useState<Species | null>(null);
+  const [nama, setNama] = useState("");
 
   useSay(species ? t("adopsi.prompt2") : t("adopsi.prompt1"));
 
@@ -61,16 +62,38 @@ export default function Adopsi() {
       ) : (
         <div className="anim-muncul mt-4 flex flex-col items-center">
           <Creature species={species} mood="senang" size={190} className="anim-goyang" label={t(`jenis.${species}.nama`)} />
-          <ul className="stagger mt-4 flex w-full flex-col gap-3">
+          <form
+            className="mt-4 flex w-full flex-col gap-3"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (nama.trim()) finish(nama.trim());
+            }}
+          >
+            <input
+              className="w-full rounded-3xl border-[3px] border-tinta bg-white px-4 py-3 text-center font-judul text-3xl font-extrabold shadow-[0_4px_0_var(--ink)] outline-none"
+              placeholder={t("adopsi.placeholder")}
+              aria-label={t("adopsi.judul2")}
+              value={nama}
+              maxLength={16}
+              onChange={(e) => setNama(e.target.value)}
+              autoComplete="off"
+            />
+            <button type="submit" className="btn btn-putih w-full text-2xl" disabled={!nama.trim()}>
+              {t("adopsi.simpan")}
+            </button>
+          </form>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            <span className="text-sm font-bold text-tinta-lembut">{t("adopsi.ide")}</span>
             {NAMA_PILIHAN[species].map((n) => (
-              <li key={n}>
-                <button type="button" className="btn btn-putih w-full text-3xl" onClick={() => finish(n)}>
-                  {n}
-                </button>
-              </li>
+              <button key={n} type="button" className="rounded-full border-2 border-tinta bg-white px-3 py-1 font-bold" onClick={() => setNama(n)}>
+                {n}
+              </button>
             ))}
-          </ul>
-          <button type="button" className="mt-5 font-bold underline" onClick={() => setSpecies(null)}>
+          </div>
+          <button type="button" className="mt-5 font-bold underline" onClick={() => {
+              setSpecies(null);
+              setNama("");
+            }}>
             {t("adopsi.lain")}
           </button>
         </div>

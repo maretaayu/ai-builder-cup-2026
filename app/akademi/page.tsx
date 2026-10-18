@@ -67,7 +67,9 @@ export default function Akademi() {
   const { l } = useL();
   const [view, setView] = useState<Tampilan>(() => {
     if (typeof window === "undefined") return "beranda";
-    return new URLSearchParams(window.location.search).get("v") === "kursus" ? "kursus" : "beranda";
+    // Dashboard pelatih tidak ada di menu peserta; hanya dibuka pelatih lewat ?v=pelatih.
+    const v = new URLSearchParams(window.location.search).get("v");
+    return v === "kursus" || v === "pelatih" ? v : "beranda";
   });
   const [buka, setBuka] = useState(false);
   const [notif, setNotif] = useState(false);
@@ -85,7 +87,7 @@ export default function Akademi() {
 
   const nav = (
     <nav className="mt-6 grid gap-1" aria-label="Menu">
-      {MENU.map((m) => (
+      {MENU.filter((m) => m.id !== "pelatih" || view === "pelatih").map((m) => (
         <button
           key={m.id}
           type="button"

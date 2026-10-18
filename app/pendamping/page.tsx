@@ -419,12 +419,6 @@ export default function Pendamping() {
               {x.label}
             </button>
           ))}
-          <Link
-            href="/akademi"
-            className="shrink-0 rounded-full border-[3px] border-tinta bg-kunyit px-4 py-1.5 font-judul text-lg font-bold"
-          >
-            {t("pend.tab.akademi")}
-          </Link>
         </div>
         {tab === "sinyal" && <Sinyal remote={kode ? { kode, sinyal: live.sinyal, galat: live.galat } : undefined} />}
         {tab === "tanya" && <Tanya />}
