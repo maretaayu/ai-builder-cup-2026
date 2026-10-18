@@ -78,7 +78,7 @@ function Aman() {
 
   function simpan() {
     actions.setCircle(dipilih);
-    actions.addStar(1);
+    actions.addStar(1, "aman");
     setMode(false);
   }
 

@@ -54,14 +54,14 @@ export default function TanyaBoni() {
       // jatuh ke pesan umum di bawah
     }
     if (mine !== token.current) return;
-    const final = hasil ?? { jawaban: l("Boni sedang sulit menjawab. Coba tanya lagi, ya.", "I'm having trouble answering. Please ask again."), tips: "", ai: false };
+    const final = hasil ?? { jawaban: l(`${nama} sedang sulit menjawab. Coba tanya lagi, ya.`, "I'm having trouble answering. Please ask again."), tips: "", ai: false };
     setJ(final);
     setTahap("jawaban");
     sfx.pop();
     speak(final.jawaban);
     if (!sudahBintang.current && hasil) {
       sudahBintang.current = true;
-      actions.addStar(1);
+      actions.addStar(1, "tanya");
     }
   }
 

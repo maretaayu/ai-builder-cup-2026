@@ -2,16 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { AnakTab } from "@/components/AnakTab";
+import { useL } from "@/components/lms/util";
 import { GerbangDewasa, useGerbangDewasa } from "@/components/GerbangDewasa";
 import { LangSwitch } from "@/components/LangSwitch";
 import { WeatherIcon } from "@/components/Icons";
 import { actions, useStore, type Checkin, type Level, type Signal, type Weather } from "@/lib/store";
 import type { Jawaban } from "@/lib/copilot";
-import { perbaruiSinyal, useCekinRuang, useSinyalRuang } from "@/lib/ruang";
+import { perbaruiSinyal, useCekinRuang, useDaftarAnak, useSinyalRuang } from "@/lib/ruang";
 import { useSesi } from "@/lib/sesi";
 import { LOKAL, useT } from "@/lib/useT";
 
-type Tab = "sinyal" | "tanya" | "tren";
+type Tab = "anak" | "sinyal" | "tanya" | "tren";
 const CUACA: Weather[] = ["cerah", "mendung", "hujan", "badai"];
 
 const LEVEL_CLS: Record<Level, string> = {
@@ -348,12 +350,25 @@ export default function Pendamping() {
   const [tab, setTab] = useState<Tab>(() => {
     if (typeof window === "undefined") return "sinyal";
     const q = new URLSearchParams(window.location.search).get("tab");
-    return q === "tanya" || q === "tren" ? q : "sinyal";
+    return q === "anak" || q === "tanya" || q === "tren" ? q : "sinyal";
   });
   const { signals } = useStore();
   const { t } = useT();
   const sesi = useSesi();
-  const kode = sesi.user && !sesi.user.anonim ? sesi.profil?.ruangKode : undefined;
+  const { l } = useL();
+  const dewasa = Boolean(sesi.user && !sesi.user.anonim);
+  const { anak: anakTersimpan, galat: galatAnak } = useDaftarAnak(dewasa ? sesi.user?.uid : undefined);
+  // Ruang yang sudah ada di profil tetap tampil walau daftar belum termuat (atau ditolak aturan).
+  const kodeProfil = sesi.profil?.ruangKode;
+  const daftarAnak =
+    dewasa && kodeProfil && !anakTersimpan.some((a) => a.kode === kodeProfil)
+      ? [{ kode: kodeProfil, nama: sesi.profil?.ruangNama ?? kodeProfil, dibuat: 0 }, ...anakTersimpan]
+      : anakTersimpan;
+  const [pilihan, setPilihan] = useState("");
+  const kode = dewasa
+    ? (daftarAnak.some((a) => a.kode === pilihan) ? pilihan : undefined) ?? sesi.profil?.ruangKode ?? daftarAnak[0]?.kode
+    : undefined;
+  const anakAktif = daftarAnak.find((a) => a.kode === kode);
   const live = useSinyalRuang(kode);
   const cekinLive = useCekinRuang(kode);
   const [gemini, setGemini] = useState<boolean | null>(null);
@@ -368,6 +383,7 @@ export default function Pendamping() {
   if (!ok) return <GerbangDewasa onLolos={lolos} />;
 
   const tabs: { id: Tab; label: string }[] = [
+    ...(dewasa ? [{ id: "anak" as const, label: l(`Anak (${daftarAnak.length})`, `Children (${daftarAnak.length})`) }] : []),
     { id: "sinyal", label: baru ? t("pend.tab.sinyalN", { n: baru }) : t("pend.tab.sinyal") },
     { id: "tanya", label: t("pend.tab.tanya") },
     { id: "tren", label: t("pend.tab.tren") },
@@ -394,7 +410,7 @@ export default function Pendamping() {
             <>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-hijau-muda px-3 py-1 text-hijau">
                 <span className="size-2 animate-pulse rounded-full bg-hijau" />
-                {t("pend.koneksi.terhubung", { ruang: sesi.profil?.ruangNama ?? "" })}
+                {t("pend.koneksi.terhubung", { ruang: anakAktif?.nama ?? sesi.profil?.ruangNama ?? "" })}
               </span>
               <span className="rounded-full bg-white px-3 py-1 font-extrabold tracking-widest ring-1 ring-garis">{kode}</span>
             </>
@@ -420,6 +436,34 @@ export default function Pendamping() {
             </button>
           ))}
         </div>
+        {dewasa && daftarAnak.length > 1 && tab !== "anak" && tab !== "tanya" && (
+          <div className="mt-3 flex flex-wrap items-center gap-2" role="group" aria-label={l("Pilih anak", "Choose a child")}>
+            <span className="text-sm font-bold text-tinta-lembut">{l("Anak:", "Child:")}</span>
+            {daftarAnak.map((a) => (
+              <button
+                key={a.kode}
+                type="button"
+                aria-pressed={a.kode === kode}
+                onClick={() => setPilihan(a.kode)}
+                className={`rounded-full border-2 border-tinta px-3 py-0.5 text-sm font-extrabold ${a.kode === kode ? "bg-laut text-white" : "bg-white"}`}
+              >
+                {a.nama}
+              </button>
+            ))}
+          </div>
+        )}
+        {tab === "anak" && dewasa && (
+          <AnakTab
+            daftar={daftarAnak}
+            galatDaftar={galatAnak}
+            kodeAktif={kode}
+            onPilih={setPilihan}
+            onLihat={(k) => {
+              setPilihan(k);
+              setTab("sinyal");
+            }}
+          />
+        )}
         {tab === "sinyal" && <Sinyal remote={kode ? { kode, sinyal: live.sinyal, galat: live.galat } : undefined} />}
         {tab === "tanya" && <Tanya />}
         {tab === "tren" && <Tren remoteCekin={kode ? cekinLive : undefined} />}

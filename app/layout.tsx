@@ -24,7 +24,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Ruang Rasa",
+  title: "Teman Ada",
   description:
     "Teman bermain untuk mengenali dan menenangkan perasaan, dengan pendamping dewasa yang siap menolong.",
 };

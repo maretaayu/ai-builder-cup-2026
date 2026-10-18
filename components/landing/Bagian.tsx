@@ -30,7 +30,7 @@ export function NavAtas() {
           <span className="grid size-10 place-items-center rounded-xl bg-biru shadow-md">
             <Lambang size={28} />
           </span>
-          <span className="tampil text-2xl font-extrabold text-tinta">Ruang Rasa</span>
+          <span className="tampil text-2xl font-extrabold text-tinta">Teman Ada</span>
         </Link>
         <nav className="ml-8 hidden gap-6 text-sm font-bold text-tinta/70 lg:flex" aria-label="Navigasi">
           {tautan.map(([h, t]) => (
@@ -335,7 +335,7 @@ export function Pintu() {
         href: "/anak",
         warna: "bg-karang text-white",
         label: l("Untuk anak", "For children"),
-        judul: "Ruang Rasa",
+        judul: "Teman Ada",
         isi: l(
           "Teman bermain yang mengajak anak mengenali dan menenangkan perasaan: cuaca hati, napas balon, tebak perasaan, cerita, dan Lingkaran Aman.",
           "A playful friend that helps children notice and calm their feelings: heart weather, balloon breathing, guess-the-feeling, stories and a Safe Circle.",
@@ -605,7 +605,7 @@ export function Penutup() {
       </div>
       <footer className="relative bg-tinta px-5 py-8 text-sm font-medium text-white/70 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-1.5">
-          <p className="font-bold text-white">Ruang Rasa × Baku Jaga Academy</p>
+          <p className="font-bold text-white">Teman Ada × Baku Jaga Academy</p>
           <p>{l("Prototipe untuk Google Cloud AI Builder Cup 2026. Bukan alat diagnosis dan bukan pengganti bantuan profesional.", "Prototype for Google Cloud AI Builder Cup 2026. Not a diagnostic tool and not a substitute for professional help.")}</p>
           <p>{l("Ilustrasi dibuat dengan bantuan AI. Materi panduan adalah draf dan belum divalidasi tenaga profesional. Angka masalah dikutip dari proposal ADA Baku Jaga (PFmuda 2026), merujuk I-NAMHS 2022.", "Illustrations were created with AI assistance. Guidance content is a draft and not yet validated by professionals. Problem figures are quoted from the ADA Baku Jaga proposal (PFmuda 2026), citing I-NAMHS 2022.")}</p>
         </div>

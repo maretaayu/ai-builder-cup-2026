@@ -82,8 +82,8 @@ export function Hero() {
           </h1>
           <p className="anim-terbit mt-4 max-w-xl text-base font-medium leading-relaxed text-tinta/80 md:text-lg" style={{ animationDelay: "240ms" }}>
             {l(
-              "Ruang Rasa mengajak anak SD mengenali dan menenangkan perasaannya, memberi tanda kepada orang dewasa yang ia percaya, lalu melatih guru untuk menjawabnya. AI memperluas jangkauan tenaga ahli yang terbatas, bukan menggantikannya.",
-              "Ruang Rasa helps primary-school children notice and calm their feelings, signal a trusted adult, and trains teachers to respond. AI extends the reach of scarce experts instead of replacing them.",
+              "Teman Ada mengajak anak SD mengenali dan menenangkan perasaannya, memberi tanda kepada orang dewasa yang ia percaya, lalu melatih guru untuk menjawabnya. AI memperluas jangkauan tenaga ahli yang terbatas, bukan menggantikannya.",
+              "Teman Ada helps primary-school children notice and calm their feelings, signal a trusted adult, and trains teachers to respond. AI extends the reach of scarce experts instead of replacing them.",
             )}
           </p>
 

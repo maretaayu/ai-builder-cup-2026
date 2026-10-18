@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { HEWAN, layak, moodAman, NAMA_BOLEH, type MoodAnak } from "@/lib/amanAnak";
+import { HEWAN, layak, moodAman, namaAman, type MoodAnak } from "@/lib/amanAnak";
 import { boleh } from "@/lib/batas";
 import { adaGemini, teksJSON } from "@/lib/gemini";
 import type { Bahasa } from "@/lib/kamus";
@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     lang?: unknown; nama?: unknown; species?: unknown; tema?: unknown; cuaca?: unknown;
   } | null;
   const lang: Bahasa = b?.lang === "en" ? "en" : "id";
-  const nama = NAMA_BOLEH.includes(b?.nama as string) ? (b!.nama as string) : "Boni";
+  const nama = namaAman(b?.nama);
   const species = (b?.species as string) in HEWAN ? (b!.species as string) : "badak";
   const kunciTema = (b?.tema as string) in TEMA ? (b!.tema as string) : Object.keys(TEMA)[Math.floor(Date.now() / 1000) % Object.keys(TEMA).length];
   const cuaca = ["cerah", "mendung", "hujan", "badai"].includes(b?.cuaca as string) ? (b!.cuaca as string) : "mendung";

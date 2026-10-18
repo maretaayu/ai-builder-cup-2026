@@ -10,6 +10,7 @@ import {
   orderBy,
   query,
   runTransaction,
+  where,
   serverTimestamp,
   setDoc,
   updateDoc,
@@ -182,4 +183,61 @@ export function useKohortAkademi(aktif: boolean) {
     );
   }, [aktif]);
   return aktif && data.aktif ? data : { peserta: [] as PesertaAkademi[], galat: "" };
+}
+
+/** Satu anak = satu ruang dengan kode sendiri. Nama ruang adalah nama anak. */
+export type RuangAnak = { kode: string; nama: string; dibuat: number };
+
+export function useDaftarAnak(uid?: string) {
+  const [data, setData] = useState<{ uid?: string; anak: RuangAnak[]; galat: string }>({ anak: [], galat: "" });
+  useEffect(() => {
+    const f = fb();
+    if (!f || !uid) return;
+    return onSnapshot(
+      query(collection(f.db, "rooms"), where("ownerUid", "==", uid)),
+      (s) =>
+        setData({
+          uid,
+          galat: "",
+          anak: s.docs
+            .map((x) => ({ kode: x.id, nama: String(x.data().nama ?? ""), dibuat: ms(x.data().dibuat) }))
+            .sort((a, b) => a.dibuat - b.dibuat),
+        }),
+      (e) => setData({ uid, anak: [], galat: (e as { code?: string }).code ?? "error" }),
+    );
+  }, [uid]);
+  return uid && data.uid === uid ? data : { anak: [] as RuangAnak[], galat: "" };
+}
+
+/** Perangkat anak yang sudah terhubung ke sebuah ruang, beserta kemajuan belajarnya. */
+export type Anggota = {
+  uid: string;
+  nama: string;
+  species: Species;
+  stars?: number;
+  progres?: Record<string, number>;
+  aktifTs?: number;
+};
+
+export function useAnggota(kode?: string) {
+  const [data, setData] = useState<{ kode?: string; anggota: Anggota[] }>({ anggota: [] });
+  useEffect(() => {
+    const f = fb();
+    if (!f || !kode) return;
+    return onSnapshot(
+      collection(f.db, "rooms", kode, "anggota"),
+      (s) => setData({ kode, anggota: s.docs.map((x) => ({ ...(x.data() as Omit<Anggota, "uid">), uid: x.id })) }),
+      () => setData({ kode, anggota: [] }),
+    );
+  }, [kode]);
+  return kode && data.kode === kode ? data.anggota : [];
+}
+
+/** Perangkat anak mengirim kemajuan belajarnya agar terlihat oleh orang tua. */
+export async function sinkronProgres(kode: string, p: { stars: number; progres: Record<string, number>; aktifTs?: number }) {
+  const { db: d, auth } = db();
+  const u = auth.currentUser;
+  if (!u) return;
+  const data = JSON.parse(JSON.stringify(p)) as Record<string, unknown>;
+  await setDoc(doc(d, "rooms", kode, "anggota", u.uid), data, { merge: true });
 }

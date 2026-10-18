@@ -1,4 +1,4 @@
-# Prompt Gemini: Aset Ilustrasi Ruang Rasa (Style Geometric Flat Avatar)
+# Prompt Gemini: Aset Ilustrasi Teman Ada (Style Geometric Flat Avatar)
 
 Gaya visual ini menggunakan **modern geometric flat vector animal avatar icon** (lineless / tanpa garis tepi tebal / tanpa sticker border, dengan efek *vertical split-tone flat shading* di bagian tengah seperti referensi).
 

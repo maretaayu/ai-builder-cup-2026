@@ -70,7 +70,7 @@ export default function Mulai() {
     window.setTimeout(() => setTersalin(""), 1800);
   };
 
-  const langkahLabel = [l("Pilih peran", "Choose role"), l("Masuk", "Sign in"), l("Buat ruang", "Create a room"), l("Hubungkan anak", "Connect the child")];
+  const langkahLabel = [l("Pilih peran", "Choose role"), l("Masuk", "Sign in"), l("Tambah anak", "Add a child"), l("Hubungkan anak", "Connect the child")];
 
   return (
     <div className="grid min-h-dvh flex-1 lg:grid-cols-[0.9fr_1.1fr]">
@@ -81,7 +81,7 @@ export default function Mulai() {
         <div className="relative flex h-full flex-col justify-between p-10 text-white">
           <Link href="/" className="flex items-center gap-2.5">
             <span className="grid size-10 place-items-center rounded-xl bg-white/20 backdrop-blur"><Lambang size={28} /></span>
-            <span className="tampil text-2xl font-extrabold">Ruang Rasa</span>
+            <span className="tampil text-2xl font-extrabold">Teman Ada</span>
           </Link>
           <div>
             <div className="flex items-end">
@@ -201,7 +201,7 @@ export default function Mulai() {
 
           {!profilMuat && langkah === "ruang" && (
             <Panel>
-              <Judul no={l("Langkah 2", "Step 2")} judul={l("Buat ruang untuk anak", "Create a room for the child")} sub={l("Ruang adalah tempat sinyal dan tren anak berkumpul. Satu ruang bisa untuk keluarga atau satu kelas.", "A room is where a child's signals and trends gather. One room can be a family or a class.")} />
+              <Judul no={l("Langkah 2", "Step 2")} judul={l("Tambahkan anak pertama", "Add your first child")} sub={l("Setiap anak mendapat kode unik atas namanya. Anak lain bisa ditambahkan nanti di menu Anak.", "Each child gets a unique code in their name. You can add more children later in the Children tab.")} />
               <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-teks2">
                 <span className="grid size-7 place-items-center rounded-full bg-biru text-xs font-bold text-white">{(sesi.user?.nama || sesi.user?.email || "?")[0]?.toUpperCase()}</span>
                 {sesi.user?.nama || sesi.user?.email}
@@ -216,15 +216,10 @@ export default function Mulai() {
                   });
                 }}
               >
-                <label htmlFor="nr" className="text-sm font-semibold">{l("Nama ruang", "Room name")}</label>
-                <input id="nr" className="lms-input" value={namaRuang} onChange={(e) => setNamaRuang(e.target.value.slice(0, 60))} placeholder={l("mis. Keluarga Sari, atau Kelas 1A", "e.g. Sari family, or Class 1A")} autoComplete="off" />
-                <div className="flex flex-wrap gap-2">
-                  {[l("Keluarga", "Family"), l("Kelas 1A", "Class 1A"), l("Kelas 1B", "Class 1B")].map((s) => (
-                    <button key={s} type="button" className="lms-chip hover:bg-biru hover:text-white" onClick={() => setNamaRuang(s)}>{s}</button>
-                  ))}
-                </div>
+                <label htmlFor="nr" className="text-sm font-semibold">{l("Nama anak", "Child's name")}</label>
+                <input id="nr" className="lms-input" value={namaRuang} onChange={(e) => setNamaRuang(e.target.value.slice(0, 60))} placeholder={l("mis. Aisyah", "e.g. Aisha")} autoComplete="off" />
                 <button type="submit" disabled={sibuk || namaRuang.trim().length < 2} className="lms-btn !py-3">
-                  {sibuk ? l("Membuat ruang...", "Creating room...") : l("Buat ruang", "Create room")}
+                  {sibuk ? l("Membuat kode...", "Creating code...") : l("Buat kode anak", "Create child code")}
                 </button>
               </form>
               {galat && <p role="alert" className="mt-3 rounded-xl bg-red-50 px-4 py-2.5 text-sm font-semibold text-merah">{galat}</p>}
@@ -234,9 +229,9 @@ export default function Mulai() {
 
           {!profilMuat && langkah === "kode" && (
             <Panel>
-              <Judul no={l("Langkah 3", "Step 3")} judul={l("Ruang siap. Hubungkan perangkat anak.", "Room ready. Connect the child's device.")} sub={sesi.profil?.ruangNama ? `${l("Ruang", "Room")}: ${sesi.profil.ruangNama}` : undefined} />
+              <Judul no={l("Langkah 3", "Step 3")} judul={l("Kode siap. Hubungkan perangkat anak.", "Code ready. Connect the child's device.")} sub={sesi.profil?.ruangNama ? `${l("Untuk", "For")}: ${sesi.profil.ruangNama}` : undefined} />
               <div className="mt-6 rounded-2xl border border-garis bg-abu p-5 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-teks2">{l("Kode ruang", "Room code")}</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-teks2">{l("Kode anak", "Child code")}</p>
                 <p className="tampil mt-1 flex justify-center gap-1.5" aria-label={kode.split("").join(" ")}>
                   {kode.split("").map((c, i) => (
                     <span key={i} className="grid h-14 w-11 place-items-center rounded-xl bg-white text-3xl font-extrabold text-biru-tua shadow-sm ring-1 ring-garis">{c}</span>

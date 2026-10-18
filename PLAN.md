@@ -1,4 +1,4 @@
-# Rencana AI Builder Cup 2026 — Ruang Rasa × Baku Jaga
+# Rencana AI Builder Cup 2026 — Teman Ada × Baku Jaga
 
 Status: draft untuk didiskusikan tim. Dibuat 17 Okt 2026.
 
@@ -15,7 +15,7 @@ Status: draft untuk didiskusikan tim. Dibuat 17 Okt 2026.
 
 **Satu platform, tiga peran, satu loop.**
 
-> Ruang Rasa: platform kesehatan mental berbasis WHO (HAT/EASE) dan MHFA. Anak berlatih mengenali dan menenangkan emosi, orang dewasa terpercaya yang sudah terlatih menerima sinyal saat anak butuh bantuan, dan AI memperluas jangkauan tenaga ahli yang sangat sedikit (Maluku: ±4 psikiater tetap untuk ±1,8 juta penduduk).
+> Teman Ada: platform kesehatan mental berbasis WHO (HAT/EASE) dan MHFA. Anak berlatih mengenali dan menenangkan emosi, orang dewasa terpercaya yang sudah terlatih menerima sinyal saat anak butuh bantuan, dan AI memperluas jangkauan tenaga ahli yang sangat sedikit (Maluku: ±4 psikiater tetap untuk ±1,8 juta penduduk).
 
 Dua produk di dokumen digabung jadi satu loop, bukan dua aplikasi:
 

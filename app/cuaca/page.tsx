@@ -37,7 +37,7 @@ export default function Cuaca() {
     if (!weather) return;
     const tr = triage({ weather, body }, lang);
     const id = actions.addCheckin({ weather, body, level: tr.level });
-    actions.addStar(1);
+    actions.addStar(1, "cuaca");
     if (sesi.user?.anonim && sesi.profil?.ruangKode) void catatCekin(sesi.profil.ruangKode, { weather, body, level: tr.level }).catch(() => {});
     setHasil({ weather, body, level: tr.level, checkinId: id });
   }

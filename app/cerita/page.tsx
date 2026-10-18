@@ -63,7 +63,7 @@ export default function Cerita() {
     setJawab(null);
     setN(next);
     if (next >= CERITA.length) {
-      actions.addStar(1 + bijak);
+      actions.addStar(1 + bijak, "cerita");
       fx.rayakan();
     }
   }

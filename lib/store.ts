@@ -55,6 +55,9 @@ export type State = {
   akademi: Akademi;
   companion?: { species: Species; name: string };
   stars: number;
+  /** jumlah kegiatan belajar yang sudah diselesaikan, per jenis (cuaca, napas, tebak, ...) */
+  progres: Record<string, number>;
+  aktifTs?: number;
   checkins: Checkin[];
   circle: string[];
   signals: Signal[];
@@ -68,6 +71,7 @@ const initial: State = {
   lang: "id",
   akademi: { nama: "", tahap: "mulai", total: 6 },
   stars: 0,
+  progres: {},
   checkins: [],
   circle: [],
   signals: [],
@@ -145,8 +149,9 @@ export const actions = {
   adopt(species: Species, name: string) {
     commit({ ...state, companion: { species, name } });
   },
-  addStar(n = 1) {
-    commit({ ...state, stars: state.stars + n });
+  addStar(n = 1, kegiatan?: string) {
+    const progres = kegiatan ? { ...state.progres, [kegiatan]: (state.progres[kegiatan] ?? 0) + 1 } : state.progres;
+    commit({ ...state, stars: state.stars + n, progres, aktifTs: Date.now() });
     if (n > 0) fx.bintang(n);
   },
   addCheckin(c: Omit<Checkin, "id" | "ts">) {

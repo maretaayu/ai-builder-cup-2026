@@ -100,7 +100,7 @@ function Napas() {
       const tr = triage({ weather: cek.weather, body: cek.body, after: a }, lang);
       actions.updateCheckin(cek.id, { after: a, level: tr.level });
     }
-    actions.addStar(a === "lebih-baik" ? 2 : 1);
+    actions.addStar(a === "lebih-baik" ? 2 : 1, "napas");
     setFase("akhir");
   }
 

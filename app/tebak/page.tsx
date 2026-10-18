@@ -56,7 +56,7 @@ export default function Tebak() {
       const n = i + 1;
       setI(n);
       if (n >= RONDE) {
-        actions.addStar(Math.max(1, skor));
+        actions.addStar(Math.max(1, skor), "tebak");
         fx.rayakan();
       }
     }, 1700);

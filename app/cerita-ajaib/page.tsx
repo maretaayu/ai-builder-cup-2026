@@ -93,7 +93,7 @@ export default function CeritaAjaib() {
     setTahap("hasil");
     const bijak = p.jenis !== "kurang";
     (bijak ? sfx.benar : sfx.salah)();
-    actions.addStar(bijak ? 2 : 1);
+    actions.addStar(bijak ? 2 : 1, "ceritaAjaib");
     if (bijak) fx.rayakan();
     speak(`${p.hasil} ${bijak && cerita ? cerita.pelajaran : ""}`);
   }

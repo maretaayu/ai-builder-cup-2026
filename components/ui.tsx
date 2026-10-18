@@ -7,6 +7,7 @@ import { actions, useHydrated, useStore } from "@/lib/store";
 import { speak, useSay } from "@/lib/speech";
 import { useT } from "@/lib/useT";
 import { LangSwitch } from "./LangSwitch";
+import { SinkronAnak } from "./SinkronAnak";
 import { Creature, type Mood } from "./Creature";
 import { ArrowLeftIcon, SpeakerIcon, StarIcon } from "./Icons";
 
@@ -88,6 +89,7 @@ export function ChildShell({
         </div>
       </header>
       <main className="flex flex-1 flex-col px-4 pb-8 pt-3">{children}</main>
+      <SinkronAnak />
     </div>
   );
 }

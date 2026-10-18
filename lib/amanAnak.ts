@@ -36,4 +36,9 @@ export const HEWAN: Record<string, { id: string; en: string }> = {
   penyu: { id: "penyu", en: "sea turtle" },
 };
 
-export const NAMA_BOLEH = ["Boni", "Bimo", "Badu", "Nuri", "Kiki", "Mera", "Peyu", "Tulus", "Lani"];
+// Nama pet bebas diinput anak; bersihkan agar aman masuk ke prompt.
+export function namaAman(v: unknown, cadangan = "Boni"): string {
+  if (typeof v !== "string") return cadangan;
+  const n = v.replace(/[^\p{L}\p{N} '-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 16);
+  return n.length >= 1 ? n : cadangan;
+}
