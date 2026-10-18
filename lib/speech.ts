@@ -61,8 +61,10 @@ export function stopSpeaking() {
   if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
 }
 
-export function speak(text: string) {
+/** `paksa`: dipakai tombol "dengar" yang ditekan sendiri oleh pengguna; selain itu hormati pengaturan suara. */
+export function speak(text: string, paksa = false) {
   if (typeof window === "undefined") return;
+  if (!paksa && !getState().sound) return;
   stopSpeaking();
   const mine = token;
   if (awanMati) return suaraBrowser(text);

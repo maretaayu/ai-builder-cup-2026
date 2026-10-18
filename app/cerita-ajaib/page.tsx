@@ -183,7 +183,7 @@ export default function CeritaAjaib() {
               {l("Pelajaran: ", "Lesson: ")}
               {cerita.pelajaran}
             </p>
-            <button type="button" className="mt-3 font-bold underline" onClick={() => speak(jawab.hasil)}>
+            <button type="button" className="mt-3 font-bold underline" onClick={() => speak(jawab.hasil, true)}>
               {l("Dengar lagi", "Listen again")}
             </button>
           </div>

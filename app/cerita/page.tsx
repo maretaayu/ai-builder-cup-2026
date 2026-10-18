@@ -88,7 +88,7 @@ export default function Cerita() {
             <Creature species={companion.species} mood={jawab.mood} size={150} />
           </span>
           <p className="mt-2 text-center text-xl font-bold leading-snug">{teksHasil}</p>
-          <button type="button" className="mt-3 font-bold underline" onClick={() => speak(teksHasil)}>
+          <button type="button" className="mt-3 font-bold underline" onClick={() => speak(teksHasil, true)}>
             {t("umum.dengarLagi")}
           </button>
         </div>

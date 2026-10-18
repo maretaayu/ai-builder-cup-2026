@@ -127,7 +127,7 @@ export function Say({
         <p className="text-[1.15rem] font-bold leading-snug">{text}</p>
         <button
           type="button"
-          onClick={() => speak(text)}
+          onClick={() => speak(text, true)}
           className="mt-2 inline-flex items-center gap-1.5 rounded-full border-2 border-tinta bg-laut-muda px-3 py-1 text-sm font-bold"
           aria-label={t("umum.dengarLagi")}
         >

@@ -62,6 +62,7 @@ export type State = {
 };
 
 const KEY = "ruang-rasa-v1";
+const KEY_SUARA = "ruang-rasa-suara-v2";
 
 const initial: State = {
   lang: "id",
@@ -83,6 +84,11 @@ function load() {
   try {
     const raw = window.localStorage.getItem(KEY);
     if (raw) state = { ...initial, ...JSON.parse(raw) };
+    // Suara kini mati secara default: setel ulang sekali untuk pengguna lama yang tersimpan menyala.
+    if (!window.localStorage.getItem(KEY_SUARA)) {
+      state = { ...state, sound: false };
+      window.localStorage.setItem(KEY_SUARA, "1");
+    }
   } catch {
     // penyimpanan tidak tersedia: lanjut dengan keadaan awal
   }

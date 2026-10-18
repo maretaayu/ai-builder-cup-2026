@@ -116,7 +116,7 @@ export default function TanyaBoni() {
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <button type="button" className="btn btn-putih btn-kecil" onClick={() => j && speak(j.jawaban)}>
+        <button type="button" className="btn btn-putih btn-kecil" onClick={() => j && speak(j.jawaban, true)}>
           {l("Dengar lagi", "Listen again")}
         </button>
         <button type="button" className="btn btn-putih btn-kecil" onClick={() => void tanya(aktif, "lagi")}>
