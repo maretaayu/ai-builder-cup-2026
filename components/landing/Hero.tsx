@@ -82,8 +82,8 @@ export function Hero() {
           </h1>
           <p className="anim-terbit mt-4 max-w-xl text-base font-medium leading-relaxed text-tinta/80 md:text-lg" style={{ animationDelay: "240ms" }}>
             {l(
-              "Teman Ada mengajak anak SD mengenali dan menenangkan perasaannya, memberi tanda kepada orang dewasa yang ia percaya, lalu melatih guru untuk menjawabnya. AI memperluas jangkauan tenaga ahli yang terbatas, bukan menggantikannya.",
-              "Teman Ada helps primary-school children notice and calm their feelings, signal a trusted adult, and trains teachers to respond. AI extends the reach of scarce experts instead of replacing them.",
+              "Teman Ada mengajak anak mengenali dan menenangkan perasaannya, memberi tanda kepada orang dewasa yang ia percaya, lalu membantu orang tua dan guru menanggapinya. AI memperluas jangkauan tenaga ahli yang terbatas, bukan menggantikannya.",
+              "Teman Ada helps children notice and calm their feelings, signal a trusted adult, and helps parents and teachers respond. AI extends the reach of scarce experts instead of replacing them.",
             )}
           </p>
 
@@ -92,8 +92,8 @@ export function Hero() {
               {l("Coba aplikasi anak", "Try the child app")}
               <Ikon nama="arrow" size={18} />
             </Link>
-            <Link href="/akademi" className="inline-flex items-center gap-2 rounded-full border-2 border-tinta/15 bg-white/80 px-6 py-3 text-base font-bold text-tinta backdrop-blur transition hover:bg-white">
-              Baku Jaga Academy
+            <Link href="/pendamping" className="inline-flex items-center gap-2 rounded-full border-2 border-tinta/15 bg-white/80 px-6 py-3 text-base font-bold text-tinta backdrop-blur transition hover:bg-white">
+              {l("Untuk orang tua dan guru", "For parents and teachers")}
             </Link>
           </div>
 

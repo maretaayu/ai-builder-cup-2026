@@ -3,10 +3,10 @@
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
-/** Layar anak memakai bingkai ponsel; beranda utama dan area pelatih (ToT) memakai tata letak web selebar layar. */
+/** Layar anak memakai bingkai ponsel; beranda utama dan halaman masuk dewasa memakai tata letak web selebar layar. */
 export function Bingkai({ children }: { children: ReactNode }) {
   const path = usePathname();
-  const lebar = path === "/" || path.startsWith("/akademi") || path.startsWith("/mulai");
+  const lebar = path === "/" || path.startsWith("/mulai");
   return (
     <div
       className={

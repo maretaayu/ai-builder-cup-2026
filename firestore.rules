@@ -68,11 +68,6 @@ service cloud.firestore {
       }
     }
 
-    // Hasil Academy: setiap peserta menulis miliknya; sesama pengguna dewasa dapat membaca untuk dashboard pelatih.
-    match /akademi/{uid} {
-      allow read: if dewasa();
-      allow write: if dewasa() && request.auth.uid == uid;
-    }
 
     match /{semua=**} {
       allow read, write: if false;

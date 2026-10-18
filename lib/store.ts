@@ -33,26 +33,8 @@ export type Signal = {
   ai?: boolean;
 };
 
-export type Tahap = "mulai" | "pre" | "materi" | "latihan" | "post" | "selesai";
-
-/** Kemajuan peserta Baku Jaga Academy (disimpan lokal di browser). */
-export type Akademi = {
-  nama: string;
-  tahap: Tahap;
-  pre?: number;
-  post?: number;
-  /** hasil per soal (benar atau salah), untuk analisis per soal di dashboard pelatih */
-  benarPre?: boolean[];
-  benarPost?: boolean[];
-  total: number;
-  latihan?: { skor: number; maks: number };
-  kode?: string;
-  selesaiTs?: number;
-};
-
 export type State = {
   lang: Bahasa;
-  akademi: Akademi;
   companion?: { species: Species; name: string };
   stars: number;
   /** jumlah kegiatan belajar yang sudah diselesaikan, per jenis (cuaca, napas, tebak, ...) */
@@ -69,7 +51,6 @@ const KEY_SUARA = "ruang-rasa-suara-v2";
 
 const initial: State = {
   lang: "id",
-  akademi: { nama: "", tahap: "mulai", total: 6 },
   stars: 0,
   progres: {},
   checkins: [],
@@ -190,12 +171,6 @@ export const actions = {
   },
   setLang(lang: Bahasa) {
     commit({ ...state, lang });
-  },
-  setAkademi(patch: Partial<Akademi>) {
-    commit({ ...state, akademi: { ...state.akademi, ...patch } });
-  },
-  resetAkademi() {
-    commit({ ...state, akademi: { ...initial.akademi } });
   },
   toggleSound() {
     commit({ ...state, sound: !state.sound });

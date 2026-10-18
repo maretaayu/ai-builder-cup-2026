@@ -45,7 +45,7 @@ export function Ikon({ nama, size = 20, ...rest }: { nama: NamaIkon; size?: numb
   );
 }
 
-/** Lambang Baku Jaga: dua tangan menopang hati (sederhana, milik sendiri). */
+/** Lambang Teman Ada: dua tangan menopang hati (sederhana, milik sendiri). */
 export function Lambang({ size = 36 }: { size?: number }) {
   return (
     <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden>

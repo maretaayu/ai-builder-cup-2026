@@ -30,7 +30,6 @@ const id = {
   "jenis.penyu.sapaan": "Penyu yang tenang",
 
   // gerbang
-  "gerbang.badge": "Untuk anak kelas 1 SD",
   "gerbang.sub": "Yuk kenalan sama perasaanmu dan bantu hatimu jadi tenang, bareng teman barumu!",
   "gerbang.mulai": "Yuk, main!",
   "gerbang.lagi": "Main lagi bersama {nama}",
@@ -189,7 +188,6 @@ const id = {
   "pend.tab.sinyalN": "Sinyal ({n})",
   "pend.tab.tanya": "Tanya pendamping",
   "pend.tab.tren": "Tren",
-  "pend.tab.akademi": "Baku Jaga Academy",
   "pend.ai.periksa": "AI: memeriksa",
   "pend.ai.aktif": "AI: Gemini aktif",
   "pend.ai.dasar": "AI: mode dasar",
@@ -263,7 +261,6 @@ const en: Record<keyof typeof id, string> = {
   "jenis.penyu.nama": "Sea turtle",
   "jenis.penyu.sapaan": "A calm sea turtle",
 
-  "gerbang.badge": "For first graders",
   "gerbang.sub": "Get to know your feelings and calm your heart with your new buddy!",
   "gerbang.mulai": "Let's play!",
   "gerbang.lagi": "Play again with {nama}",
@@ -413,7 +410,6 @@ const en: Record<keyof typeof id, string> = {
   "pend.tab.sinyalN": "Signals ({n})",
   "pend.tab.tanya": "Ask the guide",
   "pend.tab.tren": "Trends",
-  "pend.tab.akademi": "Baku Jaga Academy",
   "pend.ai.periksa": "AI: checking",
   "pend.ai.aktif": "AI: Gemini on",
   "pend.ai.dasar": "AI: basic mode",

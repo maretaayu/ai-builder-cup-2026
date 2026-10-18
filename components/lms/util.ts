@@ -1,7 +1,8 @@
 "use client";
 
 import { useT } from "@/lib/useT";
-import type { L } from "@/lib/akademi";
+/** Teks dua bahasa. */
+export type L = { id: string; en: string };
 
 /** l("id","en") memilih teks sesuai bahasa; p(obj) memilih dari objek dua bahasa. */
 export function useL() {

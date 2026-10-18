@@ -99,7 +99,7 @@ export function Masalah() {
                 }
                 besar={l("1 dari 3", "1 in 3")}
                 judul={l("remaja Indonesia punya masalah kesehatan mental", "Indonesian adolescents have a mental health problem")}
-                sub={l("Survei I-NAMHS 2022, dikutip proposal ADA Baku Jaga.", "I-NAMHS 2022 survey, quoted in the ADA Baku Jaga proposal.")}
+                sub={l("Survei I-NAMHS 2022, dikutip proposal ADA.", "I-NAMHS 2022 survey, quoted in the ADA proposal.")}
               />
             </Muncul>
             <Muncul delay={150}>
@@ -113,7 +113,7 @@ export function Masalah() {
                 }
                 besar={`${pct.toFixed(1).replace(".", ",")}%`}
                 judul={l("yang mengalami gangguan mengakses layanan", "of those affected access services")}
-                sub={l("Menurut proposal ADA Baku Jaga. Angka ini perlu diverifikasi ke sumber aslinya.", "According to the ADA Baku Jaga proposal. This figure needs checking against the original source.")}
+                sub={l("Menurut proposal ADA. Angka ini perlu diverifikasi ke sumber aslinya.", "According to the ADA proposal. This figure needs checking against the original source.")}
               />
             </Muncul>
             <Muncul delay={300}>
@@ -208,36 +208,43 @@ function MockSinyal() {
   );
 }
 
-function MockAkademi() {
+function MockProgres() {
   const { l } = useL();
+  const kegiatan: [string, number][] = [
+    [l("Cek cuaca hati", "Weather check-in"), 5],
+    [l("Latihan napas", "Breathing"), 3],
+    [l("Tebak perasaan", "Guess the feeling"), 4],
+  ];
   return (
-    <div className="mx-auto flex w-full max-w-[470px] overflow-hidden rounded-2xl bg-abu shadow-[0_24px_60px_rgba(30,42,74,0.25)] ring-1 ring-tinta/10">
-      <div className="hidden w-28 shrink-0 bg-gradient-to-b from-biru-tua to-biru p-3 text-white sm:block">
-        <Lambang size={30} />
-        {[l("Beranda", "Home"), l("Kursus", "Courses"), l("Sertifikat", "Certificate")].map((x, i) => (
-          <p key={x} className={`mt-3 rounded-lg px-2 py-1.5 text-[11px] font-bold ${i === 1 ? "bg-white/15" : "text-white/70"}`}>{x}</p>
-        ))}
+    <div className="mx-auto w-full max-w-[440px] overflow-hidden rounded-2xl bg-white shadow-[0_24px_60px_rgba(30,42,74,0.25)] ring-1 ring-tinta/10">
+      <div className="flex items-center gap-1.5 bg-abu px-4 py-2.5">
+        <span className="size-2.5 rounded-full bg-karang" /><span className="size-2.5 rounded-full bg-kunyit" /><span className="size-2.5 rounded-full bg-daun" />
+        <span className="ml-3 text-xs font-bold text-teks2">{l("Anak saya (2)", "My children (2)")}</span>
       </div>
-      <div className="flex-1 p-4">
-        <div className="rounded-xl bg-gradient-to-r from-biru-tua to-biru p-4 text-white">
-          <p className="text-sm font-extrabold">{l("Pertolongan Pertama Emosi pada Anak", "Emotional First Aid for Children")}</p>
-          <div className="mt-3 flex items-center gap-2">
-            <span className="h-1.5 flex-1 rounded-full bg-white/25"><span className="block h-full w-[80%] rounded-full bg-white" /></span>
-            <span className="text-xs font-bold">80%</span>
-          </div>
-        </div>
-        <div className="mt-3 grid gap-1.5">
-          {["B", "A", "K", "U"].map((h, i) => (
-            <div key={h} className="flex items-center gap-2 rounded-lg bg-white px-2.5 py-1.5">
-              <span className="grid size-6 place-items-center rounded-md bg-biru text-[11px] font-bold text-white">{h}</span>
-              <span className="h-1.5 flex-1 rounded-full bg-garis"><span className="block h-full rounded-full bg-hijau" style={{ width: `${[100, 100, 100, 50][i]}%` }} /></span>
+      <div className="grid gap-3 p-5">
+        {[{ n: "Aisyah", s: "badak", b: 12 }, { n: "Raka", s: "penyu", b: 7 }].map((a, i) => (
+          <div key={a.n} className="rounded-2xl border border-garis p-3">
+            <div className="flex items-center gap-3">
+              <Creature species={a.s as "badak" | "penyu"} mood="senang" size={44} />
+              <div className="flex-1">
+                <p className="text-sm font-extrabold">{a.n}</p>
+                <p className="text-xs font-semibold text-teks2">{l("Terhubung", "Connected")} · {l(`${a.b} bintang`, `${a.b} stars`)}</p>
+              </div>
+              <span className="rounded-full bg-hijau-muda px-2.5 py-0.5 text-[10px] font-bold text-hijau">{l("Terhubung", "Connected")}</span>
             </div>
-          ))}
-        </div>
-        <div className="mt-3 rounded-xl border-4 border-double border-biru bg-white p-3 text-center">
-          <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-teks2">Baku Jaga Academy</p>
-          <p className="tampil text-lg font-extrabold text-biru-tua">{l("Sertifikat Latihan", "Certificate of Practice")}</p>
-        </div>
+            {i === 0 && (
+              <ul className="mt-3 grid gap-1.5">
+                {kegiatan.map(([k, n]) => (
+                  <li key={k} className="flex items-center gap-2 text-[11px] font-bold">
+                    <span className="w-24 shrink-0">{k}</span>
+                    <span className="h-1.5 flex-1 rounded-full bg-garis"><span className="block h-full rounded-full bg-biru" style={{ width: `${(n / 5) * 100}%` }} /></span>
+                    <span className="w-3 text-right">{n}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -261,8 +268,8 @@ export function CaraKerja() {
     {
       judul: l("Anak berlatih", "The child practices"),
       isi: l(
-        "Anak kelas 1 SD memilih cuaca hatinya lewat ikon, mendengar maskot, lalu menenangkan badan dengan napas balon. Tanpa perlu membaca.",
-        "A first grader picks their heart weather through icons, listens to the mascot, then calms their body with balloon breathing. No reading needed.",
+        "Anak memilih cuaca hatinya lewat ikon, mendengar maskot, lalu menenangkan badan dengan napas balon. Tanpa perlu membaca.",
+        "A child picks their heart weather through icons, listens to the mascot, then calms their body with balloon breathing. No reading needed.",
       ),
       mock: <MockAnak />,
     },
@@ -275,12 +282,12 @@ export function CaraKerja() {
       mock: <MockSinyal />,
     },
     {
-      judul: l("Guru terlatih menanggapi", "A trained teacher responds"),
+      judul: l("Orang tua memantau progres", "Parents follow the progress"),
       isi: l(
-        "Baku Jaga Academy melatih guru dengan langkah BAKU. Latihan merespons dinilai AI, lalu ada post-test dan sertifikat latihan.",
-        "Baku Jaga Academy trains teachers with the BAKU steps. Response practice is reviewed by AI, followed by a post-test and a practice certificate.",
+        "Tiap anak punya kode unik atas namanya. Setelah terhubung, orang tua melihat daftar anak, bintang, dan kegiatan belajar yang sudah diselesaikan.",
+        "Each child gets a unique code in their name. Once connected, parents see their children, stars and the learning activities completed.",
       ),
-      mock: <MockAkademi />,
+      mock: <MockProgres />,
     },
   ];
 
@@ -291,7 +298,7 @@ export function CaraKerja() {
           <div className="pt-8 md:pt-20">
             <Muncul>
               <h2 className="tampil text-[clamp(2.2rem,5vw,4rem)] font-extrabold text-tinta">
-                {l("Satu alur, dari anak sampai guru terlatih.", "One loop, from child to trained teacher.")}
+                {l("Satu alur, dari anak sampai orang dewasa yang dipercaya.", "One loop, from child to a trusted adult.")}
               </h2>
             </Muncul>
           </div>
@@ -325,7 +332,7 @@ export function CaraKerja() {
   );
 }
 
-/* ---------- Tiga pintu ---------- */
+/* ---------- Dua pintu ---------- */
 export function Pintu() {
   const { l } = useL();
   const [aktif, setAktif] = useState(0);
@@ -355,18 +362,6 @@ export function Pintu() {
         cta: l("Buka ruang dampingan", "Open the support room"),
         visual: <AdultIcon id="guru" size={220} />,
       },
-      {
-        href: "/akademi",
-        warna: "bg-biru-tua text-white",
-        label: l("Untuk pelatihan guru (ToT)", "For teacher training (ToT)"),
-        judul: "Baku Jaga Academy",
-        isi: l(
-          "LMS singkat: pre-test, materi, latihan merespons dengan masukan AI, post-test, sertifikat, dan dashboard pelatih.",
-          "A compact LMS: pre-test, lessons, response practice with AI feedback, post-test, certificate and a trainer dashboard.",
-        ),
-        cta: l("Buka Academy", "Open the Academy"),
-        visual: <Lambang size={200} />,
-      },
     ],
     [l],
   );
@@ -374,7 +369,7 @@ export function Pintu() {
   return (
     <section id="produk" className="mx-auto w-full max-w-7xl scroll-mt-16 px-5 py-16 md:px-10 md:py-24">
       <Muncul>
-        <h2 className="tampil text-[clamp(2.2rem,5vw,4rem)] font-extrabold text-tinta">{l("Tiga pintu, satu platform.", "Three doors, one platform.")}</h2>
+        <h2 className="tampil text-[clamp(2.2rem,5vw,4rem)] font-extrabold text-tinta">{l("Dua pintu, satu platform.", "Two doors, one platform.")}</h2>
       </Muncul>
       <div className="mt-10 flex flex-col gap-4 md:h-[520px] md:flex-row">
         {panel.map((p, i) => (
@@ -507,10 +502,6 @@ export function CopilotDemo() {
               <span>{l("Copilot Pendamping", "Caregiver Copilot")}<span className="block text-xs font-medium text-white/80">{l("Gerbang orang dewasa: jawab 7 + 8", "Adult gate: answer 7 + 8")}</span></span>
               <Ikon nama="arrow" size={16} />
             </Link>
-            <Link href="/akademi?v=kursus" className="flex items-center justify-between rounded-2xl bg-white/15 px-4 py-3 text-sm font-bold transition hover:bg-white/25">
-              <span>{l("Ngobrol dengan siswa simulasi", "Talk to a simulated student")}<span className="block text-xs font-medium text-white/70">{l("Di Academy, pilih Langsung coba latihan AI", "In the Academy, choose Jump to the AI practice")}</span></span>
-              <Ikon nama="arrow" size={16} />
-            </Link>
             <Link href="/cerita-ajaib" className="flex items-center justify-between rounded-2xl bg-white/15 px-4 py-3 text-sm font-bold transition hover:bg-white/25">
               <span>{l("Cerita Ajaib untuk anak", "Magic Story for children")}<span className="block text-xs font-medium text-white/70">{l("Anak memilih tema, Gemini menulis ceritanya", "The child picks a theme, Gemini writes the story")}</span></span>
               <Ikon nama="arrow" size={16} />
@@ -589,12 +580,11 @@ export function Penutup() {
         <Muncul dari="skala">
           <h2 className="tampil text-[clamp(2.4rem,6vw,4.8rem)] font-extrabold">{l("Mulai dari satu sentuhan.", "Start with a single tap.")}</h2>
           <p className="mx-auto mt-4 max-w-xl text-lg font-medium text-white/90">
-            {l("Coba sebagai anak, sebagai orang tua atau guru, atau sebagai peserta pelatihan.", "Try it as a child, as a parent or teacher, or as a training participant.")}
+            {l("Coba sebagai anak, atau sebagai orang tua dan guru.", "Try it as a child, or as a parent or teacher.")}
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link href="/anak" className="rounded-full bg-white px-7 py-3.5 text-base font-bold text-tinta shadow-lg transition hover:-translate-y-0.5">{l("Aplikasi anak", "Child app")}</Link>
             <Link href="/pendamping" className="rounded-full bg-tinta px-7 py-3.5 text-base font-bold text-white transition hover:-translate-y-0.5">{l("Ruang dampingan", "Support room")}</Link>
-            <Link href="/akademi" className="rounded-full border-2 border-white px-7 py-3 text-base font-bold text-white transition hover:bg-white/15">Baku Jaga Academy</Link>
           </div>
         </Muncul>
         <div className="mt-10 flex items-end justify-center">
@@ -605,9 +595,9 @@ export function Penutup() {
       </div>
       <footer className="relative bg-tinta px-5 py-8 text-sm font-medium text-white/70 md:px-10">
         <div className="mx-auto flex max-w-7xl flex-col gap-1.5">
-          <p className="font-bold text-white">Teman Ada × Baku Jaga Academy</p>
+          <p className="font-bold text-white">Teman Ada</p>
           <p>{l("Prototipe untuk Google Cloud AI Builder Cup 2026. Bukan alat diagnosis dan bukan pengganti bantuan profesional.", "Prototype for Google Cloud AI Builder Cup 2026. Not a diagnostic tool and not a substitute for professional help.")}</p>
-          <p>{l("Ilustrasi dibuat dengan bantuan AI. Materi panduan adalah draf dan belum divalidasi tenaga profesional. Angka masalah dikutip dari proposal ADA Baku Jaga (PFmuda 2026), merujuk I-NAMHS 2022.", "Illustrations were created with AI assistance. Guidance content is a draft and not yet validated by professionals. Problem figures are quoted from the ADA Baku Jaga proposal (PFmuda 2026), citing I-NAMHS 2022.")}</p>
+          <p>{l("Ilustrasi dibuat dengan bantuan AI. Materi panduan adalah draf dan belum divalidasi tenaga profesional. Angka masalah dikutip dari proposal ADA (PFmuda 2026), merujuk I-NAMHS 2022.", "Illustrations were created with AI assistance. Guidance content is a draft and not yet validated by professionals. Problem figures are quoted from the ADA proposal (PFmuda 2026), citing I-NAMHS 2022.")}</p>
         </div>
       </footer>
     </section>

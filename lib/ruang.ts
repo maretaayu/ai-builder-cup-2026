@@ -141,49 +141,6 @@ export function useCekinRuang(kode?: string) {
   return kode && data.kode === kode ? data.cekin : [];
 }
 
-/** Data peserta Academy (hasil latihan) untuk dashboard pelatih. */
-export type PesertaAkademi = {
-  uid: string;
-  nama: string;
-  pre?: number;
-  post?: number;
-  poin: number;
-  tahap: string;
-  total: number;
-  benarPre?: boolean[];
-  benarPost?: boolean[];
-};
-
-export async function simpanAkademi(p: PesertaAkademi) {
-  const { db: d, auth } = db();
-  const u = auth.currentUser;
-  if (!u || u.isAnonymous) return;
-  const data = JSON.parse(JSON.stringify({ ...p, uid: u.uid, diperbarui: serverTimestamp() })) as Record<string, unknown>;
-  data.diperbarui = serverTimestamp();
-  await setDoc(doc(d, "akademi", u.uid), data, { merge: true });
-}
-
-export async function muatAkademi(): Promise<PesertaAkademi | null> {
-  const { db: d, auth } = db();
-  const u = auth.currentUser;
-  if (!u || u.isAnonymous) return null;
-  const s = await getDoc(doc(d, "akademi", u.uid));
-  return s.exists() ? (s.data() as PesertaAkademi) : null;
-}
-
-export function useKohortAkademi(aktif: boolean) {
-  const [data, setData] = useState<{ aktif: boolean; peserta: PesertaAkademi[]; galat: string }>({ aktif: false, peserta: [], galat: "" });
-  useEffect(() => {
-    const f = fb();
-    if (!f || !aktif) return;
-    return onSnapshot(
-      query(collection(f.db, "akademi"), limit(300)),
-      (s) => setData({ aktif: true, galat: "", peserta: s.docs.map((x) => ({ ...(x.data() as PesertaAkademi), uid: x.id })) }),
-      (e) => setData({ aktif: true, peserta: [], galat: (e as { code?: string }).code ?? "error" }),
-    );
-  }, [aktif]);
-  return aktif && data.aktif ? data : { peserta: [] as PesertaAkademi[], galat: "" };
-}
 
 /** Satu anak = satu ruang dengan kode sendiri. Nama ruang adalah nama anak. */
 export type RuangAnak = { kode: string; nama: string; dibuat: number };

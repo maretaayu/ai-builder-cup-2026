@@ -18,10 +18,7 @@ export default function Gerbang() {
         <div className="flex w-full justify-end">
           <LangSwitch />
         </div>
-        <p className="mt-3 rounded-full border-[3px] border-tinta bg-white px-3 py-1 font-judul text-sm font-bold uppercase tracking-wide">
-          {t("gerbang.badge")}
-        </p>
-        <h1 className="mt-4 text-center text-6xl font-extrabold">Teman Ada</h1>
+        <h1 className="mt-6 text-center text-6xl font-extrabold">Teman Ada</h1>
         <p className="mt-2 max-w-[18rem] text-center text-lg font-semibold text-tinta-lembut">
           {t("gerbang.sub")}
         </p>

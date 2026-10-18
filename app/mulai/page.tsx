@@ -90,13 +90,13 @@ export default function Mulai() {
               <Creature species="nuri" mood="senang" size={150} className="-ml-6" />
             </div>
             <h2 className="tampil mt-6 max-w-md text-4xl font-extrabold">
-              {l("Satu ruang, satu kode. Sinyal anak sampai ke orang dewasa yang dipercaya.", "One room, one code. A child's signal reaches the adult they trust.")}
+              {l("Satu anak, satu kode. Sinyal dan progres anak sampai ke orang dewasa yang dipercaya.", "One child, one code. A child's signals and progress reach the adult they trust.")}
             </h2>
             <ul className="mt-5 grid max-w-md gap-2 text-sm font-semibold text-white/90">
               {[
-                l("Orang dewasa membuat ruang dan mendapat kode.", "An adult creates a room and gets a code."),
+                l("Orang dewasa menambahkan anak dan mendapat kode unik.", "An adult adds a child and gets a unique code."),
                 l("Perangkat anak bergabung dengan kode itu.", "The child's device joins with that code."),
-                l("Sinyal tampil langsung di perangkat orang dewasa.", "Signals appear instantly on the adult's device."),
+                l("Sinyal dan progres belajar tampil langsung di perangkat orang dewasa.", "Signals and learning progress appear instantly on the adult's device."),
               ].map((x) => (
                 <li key={x} className="flex gap-2.5">
                   <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-white/25"><Ikon nama="check" size={12} /></span>
@@ -146,7 +146,6 @@ export default function Mulai() {
                 {[
                   { ikon: "users" as const, judul: l("Saya orang tua atau guru", "I'm a parent or teacher"), isi: l("Buat ruang, terima sinyal dari anak, dan tanya Copilot.", "Create a room, receive signals from the child, and ask the Copilot."), aksi: () => setPeran("dewasa") },
                   { ikon: "play" as const, judul: l("Ini perangkat anak", "This is the child's device"), isi: l("Gabung ke ruang dengan kode dari orang dewasa.", "Join a room with a code from an adult."), aksi: () => router.push("/gabung") },
-                  { ikon: "book" as const, judul: l("Saya peserta pelatihan guru", "I'm a teacher-training participant"), isi: l("Masuk ke Baku Jaga Academy.", "Go to Baku Jaga Academy."), aksi: () => router.push("/akademi") },
                 ].map((x) => (
                   <li key={x.judul}>
                     <button type="button" onClick={x.aksi} className="lms-card flex w-full items-center gap-4 p-4 text-left transition hover:-translate-y-0.5 hover:border-biru/40">
